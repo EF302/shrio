@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwl.springboot_jsp_shiro.dao.RoleDao">
+
+    <!--根据角色id查询权限集合-->
+    <!--注 已经配置了别名，虽然resultType可以用别名，但是由于Mybatis插件问题，要报红，不影响正常运行，但影响视觉，所以，还是用全类名-->
+    <select id="findPermsByRoleId" parameterType="String" resultType="com.lwl.springboot_jsp_shiro.entity.Perms">
+        select p.id,p.name,p.url,r.name
+        from t_role r
+        left join t_role_perms rp on r.id=rp.roleId
+        left join t_perms p on p.id=rp.permsId
+        where r.id=#{id}
+    </select>
+
+</mapper>
